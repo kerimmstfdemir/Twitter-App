@@ -1,0 +1,20 @@
+/* Login Page Styling*/
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #eee;
+}
+
+.container-height {
+    height: 100%;
+}
+
+/* Media Query */
+@media (max-width: 450px) {
+    .container-height {
+        height: 100%;
+    }
+}
