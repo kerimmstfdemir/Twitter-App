@@ -3,8 +3,11 @@ import "./login.css"
 import googleicon from "../../assets/google-icon.png"
 import twittericon from "../../assets/twitter-icon.png"
 import ForgotPassword from "./ForgotPassword"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
+    const navigate = useNavigate();
+    
   return (
     <>
       <section className="vh-100">
@@ -44,7 +47,7 @@ const Login = () => {
                 </div>
                 <div className="text-center text-lg-start mt-4 pt-2 d-flex flex-column">
                   <button type="button" className="btn btn-primary btn-lg" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} >Login</button>
-                  <p className="medium fw-bold mt-2 pt-1 mb-0">Don't have an account? <span className="link-danger" style={{ cursor: "pointer" }} >Register</span></p>
+                  <p className="medium fw-bold mt-2 pt-1 mb-0">Don't have an account? <span className="link-danger" style={{ cursor: "pointer" }} onClick={()=> navigate("/register")} >Register</span></p>
                 </div>
               </form>
             </div>

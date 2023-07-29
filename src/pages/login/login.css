@@ -1,4 +1,4 @@
-/* Login Page Styling*/
+/** Login Page Styling **/
 
 .divider:after,
 .divider:before {
@@ -14,7 +14,7 @@
 
 /* Media Query */
 @media (max-width: 450px) {
-    .container-height {
+    .container-height { 
         height: 100%;
     }
 }

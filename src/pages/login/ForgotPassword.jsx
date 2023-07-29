@@ -11,9 +11,9 @@ const ForgotPassword = () => {
             </div>
             <div className="modal-body">
             <form>
-        <div className="form-group">
-          <label className="mb-2" htmlFor="exampleInputEmail1">Email : </label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email..." />
+        <div className="form-group d-flex flex-column align-items-start">
+          <label className="mb-2" htmlFor="InputEmail">Email : </label>
+          <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter your email..." />
         </div>
       </form>
             </div>
