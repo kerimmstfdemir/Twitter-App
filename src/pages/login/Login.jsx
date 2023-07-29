@@ -44,32 +44,44 @@ const Login = () => {
     
         if (!emailError && !passwordError) {
             try {
-            const { user } = await signInWithEmailAndPassword(auth, email, password)
-            const { email: emailAddress, displayName, uid, metadata: { creationTime, lastSignInTime } } = user;
-            dispatch(loginSuccess({ ...loginInforms, userInfo: { displayName, uid, metadata: { creationTime, lastSignInTime } }, email: emailAddress }))
+                const { user } = await signInWithEmailAndPassword(auth, email, password)
+                const { email: emailAddress, displayName, uid, metadata: { creationTime, lastSignInTime } } = user;
+                dispatch(loginSuccess({ ...loginInforms, userInfo: { displayName, uid, metadata: { creationTime, lastSignInTime } }, email: emailAddress }))
     
-            navigate("/home")
-            alert("Logged in successfully!")
-          } catch (error) {
-            console.log(error.message)
-            alert("Login failed!")
-          }
+                navigate("/home")
+                alert("Logged in successfully!")
+                } catch (error) {
+                console.log(error.message)
+                alert("Login failed!")
+                }
+            }
         }
-      }
 
-      const signInWithGoogle = () => {
+    const signInWithGoogle = () => {
         signInWithPopup(auth, googleProvider)
-          .then((result) => {
+            .then((result) => {
             const { email: emailAddress, displayName, metadata: { creationTime, lastSignInTime }, uid, photoURL } = result.user
     
             dispatch(loginSuccess({ ...loginInforms, userInfo: { displayName, metadata: { creationTime, lastSignInTime }, uid, photoURL }, email: emailAddress }))
     
             navigate("/home")
             alert("Successfully logged in with Google!")
-          })
-      }
+            })
+        }
 
-  return (
+        const handleKeyPress = (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+        
+                // trigger manually the 'Login' button.
+                const loginButton = document.getElementById("loginButton");
+                if (loginButton && !loginButton.disabled) {
+                    loginButton.click();
+                }
+            }
+        };
+
+    return (
     <>
       <section className="vh-100">
         <div className="container-fluid container-height">
@@ -78,7 +90,7 @@ const Login = () => {
               <img src={twittericon} className="img-fluid" alt="Twitter image" />
             </div>
             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form>
+              <form onKeyPress={handleKeyPress}>
                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-center">
                   <p className="lead fw-normal mb-0 me-3">Sign in with</p>
                   <img src={googleicon} alt="google-icon" style={{ width: "1.5rem", cursor: "pointer" }} onClick={signInWithGoogle} />
@@ -107,7 +119,7 @@ const Login = () => {
                   <span className="text-primary" style={{ cursor: "pointer", textDecoration: "underline" }} data-bs-toggle="modal" data-bs-target="#forgotPassword">Forgot password?</span>
                 </div>
                 <div className="text-center text-lg-start mt-4 pt-2 d-flex flex-column">
-                  <button type="button" className="btn btn-primary btn-lg" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} onClick={handleLogin} >Login</button>
+                  <button id="loginButton" type="button" className="btn btn-primary btn-lg" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} onClick={handleLogin} >Login</button>
                   <p className="medium fw-bold mt-2 pt-1 mb-0">Don't have an account? <span className="link-danger" style={{ cursor: "pointer" }} onClick={()=> navigate("/register")} >Register</span></p>
                 </div>
               </form>
