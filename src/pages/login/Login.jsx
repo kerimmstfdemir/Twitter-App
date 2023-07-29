@@ -70,7 +70,7 @@ const Login = () => {
         }
 
         const handleKeyPress = (e) => {
-            if (e.key === 'Enter') {
+            if (e.keyCode === 13) {
                 e.preventDefault();
         
                 // trigger manually the 'Login' button.
@@ -90,7 +90,7 @@ const Login = () => {
               <img src={twittericon} className="img-fluid" alt="Twitter image" />
             </div>
             <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form onKeyPress={handleKeyPress}>
+              <form onKeyDown={handleKeyPress}>
                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-center">
                   <p className="lead fw-normal mb-0 me-3">Sign in with</p>
                   <img src={googleicon} alt="google-icon" style={{ width: "1.5rem", cursor: "pointer" }} onClick={signInWithGoogle} />
