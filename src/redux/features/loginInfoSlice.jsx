@@ -12,11 +12,11 @@ const loginInfoSlice = createSlice({
     initialState: initialStates,
     reducers : {
         loginInfos: (state, action) => {
-            state.email = action.payload.email;
+            state.email = action.payload.email
             state.password = action.payload.password
         },
         loginSuccess: (state, action) => {
-            state.loginInformation = true;
+            state.loginInformation = true
             state.userInfo = action.payload.userInfo
             state.email = action.payload.email
             delete state.password

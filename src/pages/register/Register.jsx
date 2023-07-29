@@ -1,6 +1,73 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import registerimg from "../../assets/registerimg.png"
+import { useSelector, useDispatch } from "react-redux"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { auth } from "../../authentication/firebase"
+import { registerInfos } from "../../redux/features/registerSlice"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [ repeatPass, setRepeatPass ] = useState("")
+    const [ agreeTerms, setAgreeTerms ] = useState(false)
+    const [ emailError, setEmailError ] = useState(false)
+    const [ passwordError, setPasswordError] = useState(false)
+    const [ matchPassword, setMatchPassword ] = useState(false)
+    const registerInformations = useSelector((state) => state.registerInfos)
+    const { username, email, password } = registerInformations
+
+    const handleRegister = async () => {
+        const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    
+        //? email format check
+        if(email.match(reg)) {
+          setEmailError(false)
+        }else {
+          setEmailError(true)
+          alert("Invalid email format!")
+        }
+    
+        //? password length check
+        if(password.toString().length < 6){
+          setPasswordError(true)
+          alert("Please enter a password at least 6 character!")
+        }else{
+          setPasswordError(false)
+        }
+    
+        if(password.toString() === repeatPass.toString()){
+          setMatchPassword(true)
+        }else {
+          setMatchPassword(false);
+          alert("Entered passwords are different!")
+        }
+    
+        if(username.toString().length < 3) {
+          alert("Name information has to be at least 3 characters!")
+        }
+    
+        if(!agreeTerms){
+          alert("Please agree all statements in Terms of service!")
+        }
+    
+        if(agreeTerms && !emailError && !passwordError && matchPassword && (username.toString().length >= 3)){
+          try {
+            await createUserWithEmailAndPassword(auth, email, password)
+            await updateProfile(auth.currentUser, {
+              displayName: username
+            })
+
+            navigate("/")
+            alert("Registration Successful!")
+          } catch(error) {
+            console.log(error.message)
+          }
+        }
+      }
+
   return (
     <section className="vh-100" style={{backgroundColor: '#eee'}}>
         <div className="container h-100">
@@ -15,39 +82,39 @@ const Register = () => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw" style={{marginTop:"2rem"}}/>
                           <div className="form-outline flex-fill mb-0 d-flex flex-column align-items-start">
-                            <label className="form-label" htmlFor="form3Example1c">Name : </label>
-                            <input type="text" id="form3Example1c" className="form-control" />
+                            <label className="form-label" htmlFor="username">Username : </label>
+                            <input type="text" id="username" className="form-control" onChange={(e) => dispatch(registerInfos({...registerInformations, username:e.target.value}))}/>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw" style={{marginTop:"2rem"}}/>
                           <div className="form-outline flex-fill mb-0 d-flex flex-column align-items-start">
-                          <label className="form-label" htmlFor="form3Example3c">Email : </label>
-                            <input type="email" id="form3Example3c" className="form-control" />
+                          <label className="form-label" htmlFor="emailinfo">Email : </label>
+                            <input type="email" id="emailinfo" className="form-control" onChange={(e) => dispatch(registerInfos({...registerInformations, email:e.target.value}))}/>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-lock fa-lg me-3 fa-fw" style={{marginTop:"2rem"}}/>
                           <div className="form-outline flex-fill mb-0 d-flex flex-column align-items-start">
-                          <label className="form-label" htmlFor="form3Example4c">Password :</label>
-                            <input type="password" id="form3Example4c" className="form-control" />
+                          <label className="form-label" htmlFor="password">Password :</label>
+                            <input type="password" id="password" className="form-control" onChange={(e) => dispatch(registerInfos({...registerInformations, password:e.target.value}))}/>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-key fa-lg me-3 fa-fw" style={{marginTop:"2rem"}}/>
                           <div className="form-outline flex-fill mb-0 d-flex flex-column align-items-start">
-                          <label className="form-label" htmlFor="form3Example4cd">Repeat Password :</label>
-                            <input type="password" id="form3Example4cd" className="form-control" />
+                          <label className="form-label" htmlFor="repeatPass">Repeat Password :</label>
+                            <input type="password" id="repeatPass" className="form-control" onChange={(e) => setRepeatPass(e.target.value)}/>
                           </div>
                         </div>
                         <div className="form-check d-flex justify-content-center mb-5">
-                          <input className="form-check-input me-2" type="checkbox" defaultValue id="form2Example3c" />
+                          <input className="form-check-input me-2" type="checkbox" defaultValue id="form2Example3c" onClick={() => agreeTerms ? setAgreeTerms(false): setAgreeTerms(true)}/>
                           <label className="form-check-label" htmlFor="form2Example3">
                             I agree all statements in <a href="#!">Terms of service</a>
                           </label>
                         </div>
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                          <button type="button" className="btn btn-primary btn-lg" >Register</button>
+                          <button type="button" className="btn btn-primary btn-lg" onClick={handleRegister} >Register</button>
                         </div>
                       </form>
                     </div>

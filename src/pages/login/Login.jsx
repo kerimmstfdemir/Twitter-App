@@ -46,7 +46,7 @@ const Login = () => {
             const { email: emailAddress, displayName, uid, metadata: { creationTime, lastSignInTime } } = user;
             dispatch(loginSuccess({ ...loginInforms, userInfo: { displayName, uid, metadata: { creationTime, lastSignInTime } }, email: emailAddress }))
     
-            navigate("/")
+            navigate("/home")
             alert("Logged in successfully!")
           } catch (error) {
             console.log(error.message)
@@ -54,8 +54,6 @@ const Login = () => {
           }
         }
       };
-
-      console.log(loginInforms);
 
   return (
     <>
