@@ -6,7 +6,7 @@ import ForgotPassword from "./ForgotPassword"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useState } from "react"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "../../authentication/firebase"
 import { loginInfos, loginSuccess } from "../../redux/features/loginInfoSlice"
 
@@ -19,6 +19,8 @@ const Login = () => {
 
     const loginInforms = useSelector((state) => state.loginInfos)
     const { email, password } = loginInforms
+
+    const googleProvider = new GoogleAuthProvider();
 
     const handleLogin = async () => {
         //? Regex for email format
@@ -53,7 +55,19 @@ const Login = () => {
             alert("Login failed!")
           }
         }
-      };
+      }
+
+      const signInWithGoogle = () => {
+        signInWithPopup(auth, googleProvider)
+          .then((result) => {
+            const { email: emailAddress, displayName, metadata: { creationTime, lastSignInTime }, uid, photoURL } = result.user
+    
+            dispatch(loginSuccess({ ...loginInforms, userInfo: { displayName, metadata: { creationTime, lastSignInTime }, uid, photoURL }, email: emailAddress }))
+    
+            navigate("/home")
+            alert("Successfully logged in with Google!")
+          })
+      }
 
   return (
     <>
@@ -67,26 +81,26 @@ const Login = () => {
               <form>
                 <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-center">
                   <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                  <img src={googleicon} alt="google-icon" style={{ width: "1.5rem", cursor: "pointer" }}  />
+                  <img src={googleicon} alt="google-icon" style={{ width: "1.5rem", cursor: "pointer" }} onClick={signInWithGoogle} />
                 </div>
                 <div className="divider d-flex align-items-center my-4">
                   <p className="text-center fw-bold mx-3 mb-0">Or</p>
                 </div>
                 {/* Email input */}
                 <div className="form-outline mb-4 d-flex flex-column align-items-start align-items-lg-start">
-                  <label className="form-label" htmlFor="form3Example3" style={{ fontSize: "1.1rem", fontWeight: "600" }}>Email address : </label>
-                  <input type="email" id="form3Example3" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter a valid email address" onChange={(e) => dispatch(loginInfos({ ...loginInforms, email: e.target.value }))}/>
+                  <label className="form-label" htmlFor="emailinput" style={{ fontSize: "1.1rem", fontWeight: "600" }}>Email address : </label>
+                  <input type="email" id="emailinput" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter a valid email address" onChange={(e) => dispatch(loginInfos({ ...loginInforms, email: e.target.value }))}/>
                 </div>
                 {/* Password input */}
                 <div className="form-outline mb-3 d-flex flex-column align-items-start align-items-lg-start">
-                  <label className="form-label" htmlFor="form3Example4" style={{ fontSize: "1.1rem", fontWeight: "600" }}>Password :</label>
-                  <input type="password" id="form3Example4" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter password" onChange={(e) => dispatch(loginInfos({ ...loginInforms, password: e.target.value }))}/>
+                  <label className="form-label" htmlFor="password" style={{ fontSize: "1.1rem", fontWeight: "600" }}>Password :</label>
+                  <input type="password" id="password" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter password" onChange={(e) => dispatch(loginInfos({ ...loginInforms, password: e.target.value }))}/>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                   {/* Checkbox */}
                   <div className="form-check mb-0">
-                    <input className="form-check-input me-2" type="checkbox" defaultValue id="form2Example3" />
-                    <label className="form-check-label" htmlFor="form2Example3">
+                    <input className="form-check-input me-2" type="checkbox" defaultValue id="remember-me" />
+                    <label className="form-check-label" htmlFor="remember-me">
                       Remember me
                     </label>
                   </div>
