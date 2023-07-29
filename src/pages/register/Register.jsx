@@ -28,12 +28,14 @@ const Register = () => {
         }else {
           setEmailError(true)
           alert("Invalid email format!")
+          return;
         }
     
         //? password length check
         if(password.toString().length < 6){
           setPasswordError(true)
           alert("Please enter a password at least 6 character!")
+          return;
         }else{
           setPasswordError(false)
         }
@@ -43,28 +45,29 @@ const Register = () => {
         }else {
           setMatchPassword(false);
           alert("Entered passwords are different!")
+          return;
         }
     
         if(username.toString().length < 3) {
           alert("Name information has to be at least 3 characters!")
+          return;
         }
     
         if(!agreeTerms){
           alert("Please agree all statements in Terms of service!")
+          return;
         }
     
-        if(agreeTerms && !emailError && !passwordError && matchPassword && (username.toString().length >= 3)){
-          try {
+        try {
             await createUserWithEmailAndPassword(auth, email, password)
             await updateProfile(auth.currentUser, {
-              displayName: username
+                displayName: username
             })
 
             navigate("/")
-            alert("Registration Successful!")
-          } catch(error) {
+            alert("Registration Successful! You can sign-in.")
+        } catch (error) {
             console.log(error.message)
-          }
         }
       }
 
