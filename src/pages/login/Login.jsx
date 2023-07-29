@@ -4,10 +4,59 @@ import googleicon from "../../assets/google-icon.png"
 import twittericon from "../../assets/twitter-icon.png"
 import ForgotPassword from "./ForgotPassword"
 import { useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { useState } from "react"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../../authentication/firebase"
+import { loginInfos, loginSuccess } from "../../redux/features/loginInfoSlice"
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [emailError, setEmailError] = useState();
+    const [passwordError, setPasswordError] = useState();
+
+    const loginInforms = useSelector((state) => state.loginInfos)
+    const { email, password } = loginInforms
+
+    const handleLogin = async () => {
+        //? Regex for email format
+        const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     
+        //? email format check
+        if (email.match(reg)) {
+            setEmailError(false)
+        } else {
+            setEmailError(true)
+            alert("Invalid email format!")
+        }
+    
+        //? password length check
+        if (password.toString().length < 6) {
+            setPasswordError(true)
+            alert("Please enter a password at least 6 character!")
+        } else {
+            setPasswordError(false)
+        }
+    
+        if (!emailError && !passwordError) {
+            try {
+            const { user } = await signInWithEmailAndPassword(auth, email, password)
+            const { email: emailAddress, displayName, uid, metadata: { creationTime, lastSignInTime } } = user;
+            dispatch(loginSuccess({ ...loginInforms, userInfo: { displayName, uid, metadata: { creationTime, lastSignInTime } }, email: emailAddress }))
+    
+            navigate("/")
+            alert("Logged in successfully!")
+          } catch (error) {
+            console.log(error.message)
+            alert("Login failed!")
+          }
+        }
+      };
+
+      console.log(loginInforms);
+
   return (
     <>
       <section className="vh-100">
@@ -28,12 +77,12 @@ const Login = () => {
                 {/* Email input */}
                 <div className="form-outline mb-4 d-flex flex-column align-items-start align-items-lg-start">
                   <label className="form-label" htmlFor="form3Example3" style={{ fontSize: "1.1rem", fontWeight: "600" }}>Email address : </label>
-                  <input type="email" id="form3Example3" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter a valid email address"/>
+                  <input type="email" id="form3Example3" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter a valid email address" onChange={(e) => dispatch(loginInfos({ ...loginInforms, email: e.target.value }))}/>
                 </div>
                 {/* Password input */}
                 <div className="form-outline mb-3 d-flex flex-column align-items-start align-items-lg-start">
                   <label className="form-label" htmlFor="form3Example4" style={{ fontSize: "1.1rem", fontWeight: "600" }}>Password :</label>
-                  <input type="password" id="form3Example4" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter password"/>
+                  <input type="password" id="form3Example4" className="form-control form-control-lg" style={{ fontSize: "1.1rem" }} placeholder="Enter password" onChange={(e) => dispatch(loginInfos({ ...loginInforms, password: e.target.value }))}/>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                   {/* Checkbox */}
@@ -46,7 +95,7 @@ const Login = () => {
                   <span className="text-primary" style={{ cursor: "pointer", textDecoration: "underline" }} data-bs-toggle="modal" data-bs-target="#forgotPassword">Forgot password?</span>
                 </div>
                 <div className="text-center text-lg-start mt-4 pt-2 d-flex flex-column">
-                  <button type="button" className="btn btn-primary btn-lg" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} >Login</button>
+                  <button type="button" className="btn btn-primary btn-lg" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} onClick={handleLogin} >Login</button>
                   <p className="medium fw-bold mt-2 pt-1 mb-0">Don't have an account? <span className="link-danger" style={{ cursor: "pointer" }} onClick={()=> navigate("/register")} >Register</span></p>
                 </div>
               </form>
