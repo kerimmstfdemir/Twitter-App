@@ -1,0 +1,31 @@
+.flow {
+    flex: 0.4;
+    border-right: 1px solid #e6ecf0;
+    min-width: 70rem;
+    overflow-y: scroll;
+  }
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .flow::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .flow {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .flow__header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 100;
+    border: 1px solid #e6ecf0;
+    padding: 15px 20px;
+  }
+  
+  .flow__header > h2 {
+    font-size: 20px;
+    font-weight: 800;
+  }
