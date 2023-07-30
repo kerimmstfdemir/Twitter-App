@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import TwitterIcon from '@mui/icons-material/Twitter';
+import NavbarAfterLogin from './NavbarAfterLogin';
 
 const Navbar = () => {
     const { loginInformation } = useSelector((state) => state.loginInfos)
@@ -29,6 +30,8 @@ const Navbar = () => {
                     </Toolbar>
                 </AppBar>
             </Box>}
+
+            {loginInformation && <NavbarAfterLogin />}
         </>
     )
 }
