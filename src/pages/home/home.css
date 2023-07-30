@@ -1,0 +1,7 @@
+.home {
+    display: flex;
+    height: 100vh;
+    max-width: 78.125rem;
+    margin-left: 0.75rem;
+    margin-right: auto;
+  }
