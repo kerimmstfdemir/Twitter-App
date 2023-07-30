@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
-import { getDatabase, onValue, ref, set, update } from "firebase/database"
+import { getDatabase, onValue, ref} from "firebase/database"
 import app from "../../authentication/firebase";
 import PostTweet from "../PostTweet/PostTweet";
 import Post from "../Posts/Post";
@@ -22,8 +22,9 @@ function HomePageFlow() {
         const postsArray = []
 
         for (let id in data) {
-            postsArray.push({ id, ...data[id] })
-        }
+            const verified = data[id].verified === "true" ? true : false;
+            postsArray.push({ id, ...data[id], verified });
+            }    
         dispatch(getPosts({ posts: postsArray.reverse() }))
     })
 }, [] )
@@ -43,7 +44,7 @@ function HomePageFlow() {
             displayName={post.displayName}
             username={post.username}
             verified={post.verified}
-            text={post.tweetText}
+            tweetText={post.tweetText}
             avatar={post.avatar}
             image={post.image}
           />
