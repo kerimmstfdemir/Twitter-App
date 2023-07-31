@@ -1,6 +1,7 @@
-import React from "react";
+import "./user-tweets.css"
 import Post from "../Posts/Post";
 import { useSelector } from "react-redux";
+import FlipMove from "react-flip-move";
 
 function UserTweets() {
   const { posts } = useSelector((state) => state.postsSlice);
@@ -13,6 +14,7 @@ function UserTweets() {
         <div className="flow__header">
             <h2>Your Tweets</h2>
         </div>
+        <FlipMove>
       {userPosts.map((post) => (
         <Post
           key={post.id}
@@ -24,6 +26,7 @@ function UserTweets() {
           image={post.image}
         />
       ))}
+      </FlipMove>
     </div>
   );
 }

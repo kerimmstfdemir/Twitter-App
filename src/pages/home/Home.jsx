@@ -8,6 +8,7 @@ import { getDatabase, onValue, ref } from "firebase/database"
 import app from "../../authentication/firebase";
 import { getPosts } from "../../redux/features/postsSlice";
 import UserTweets from "../../components/UserTweets/UserTweets";
+import OtherUserTweets from "../../components/UserTweets/OtherUserTweets";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const Home = () => {
       <Sidebar />
       {activeTab === "Home" && <HomePageFlow posts={posts}/>}
       {activeTab === "YourTweets" && <UserTweets posts={posts}/>}
+      {activeTab === "Explore" && <OtherUserTweets posts={posts}/>}
     </div>
   )
 }

@@ -141,8 +141,7 @@ const NavbarAfterLogin = () => {
             aria-label="account of current user"
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
-            color="inherit"
-          >
+            color="inherit">
             <AccountCircle />
           </IconButton>
           <p>Profile</p>
@@ -160,19 +159,10 @@ const NavbarAfterLogin = () => {
               noWrap
               component="div"
               sx={{ display: { xs: 'none', sm: 'block' }, cursor:"pointer" }}
-              onClick={() => navigate("/")}
-            >
+              onClick={() => navigate("/home")}>
               Twitter App
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
+            
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton

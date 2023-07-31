@@ -10,7 +10,7 @@ const store = configureStore({
         loginInfos: loginInfoSlice,
         registerInfos: registerSlice,
         postsSlice: postsSlice,
-        sidebarSlice : sidebarSlice
+        sidebarSlice : sidebarSlice,
     }
 })
 
