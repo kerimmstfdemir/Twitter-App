@@ -1,7 +1,10 @@
 .tweetBox {
     padding-bottom: 10px;
-    border-bottom: 8px solid #e6ecf0;
+    /* border-bottom: 8px solid #e6ecf0; */
     padding-right: 10px;
+    border-radius: 20px;
+    border: 10px solid #e6ecf0;
+    margin-bottom: 1rem;
   }
   
   .tweetBox > form {
@@ -17,13 +20,18 @@
   .tweetBox__input > input {
     flex: 1;
     margin-left: 20px;
-    font-size: 20px;
-    border: none;
+    font-size: 16px;
+    border: 5px solid #e6ecf0;
+    border-radius: 1rem;
+    text-indent: 10px;
   }
   
   .tweetBox__imageInput {
-    border: none;
+    border: 3px solid #e6ecf0;
+    border-radius: 1rem;
     padding: 10px;
+    margin: 0 1rem 0.5rem 0.7rem;
+    font-size: 15px;
   }
   
   .tweetBox__tweetButton {

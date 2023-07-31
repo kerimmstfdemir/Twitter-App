@@ -107,7 +107,7 @@ function TweetBox() {
         />
 
         <div>
-            <img src={tweetImage} className="img-thumbnail" onError={imgOnError} width={550}></img>
+            <img src={tweetImage} className="img-thumbnail" style={{marginLeft:"1rem", borderRadius:"10px"}} onError={imgOnError} width={450}></img>
         </div>
 
         <Button

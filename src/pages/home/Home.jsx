@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar"
 import HomePageFlow from "../../components/HomePageFlow/HomePageFlow"
@@ -6,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { getDatabase, onValue, ref } from "firebase/database"
 import app from "../../authentication/firebase";
 import { getPosts } from "../../redux/features/postsSlice";
+import UserTweets from "../../components/UserTweets/UserTweets";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -32,6 +34,7 @@ const Home = () => {
     <div className="home">
       <Sidebar />
       {activeTab === "Home" && <HomePageFlow posts={posts}/>}
+      {activeTab === "YourTweets" && <UserTweets posts={posts}/>}
     </div>
   )
 }
