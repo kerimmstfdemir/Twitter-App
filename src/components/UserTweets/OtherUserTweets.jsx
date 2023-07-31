@@ -1,3 +1,4 @@
+import "./user-tweets.css"
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "../Posts/Post";
@@ -26,9 +27,9 @@ const OtherUserTweets = () => {
         <h2>Explore</h2>
       </div>
       <div>
-        <h5>Select User</h5>
-        <select value={selectedUsername} onChange={handleUserChange}>
-          <option value="">-- Select User --</option>
+        <h5>Select User :</h5>
+        <select className="form-select" value={selectedUsername} style={{margin:"1rem", width:"95%"}} onChange={handleUserChange}>
+          <option value="">--- Select ---</option>
           {usernames.map((username) => (
             <option key={username} value={username}>
               {username}
