@@ -1,10 +1,11 @@
 ## Twitter-App
-
+```
 📝 Developed a basic Twitter App in React environment.
 🔥 Used Google Firebase for authentication (Login & Register).
 📊 Leveraged Firebase Realtime Database for user operations (post, delete).
 📝 You can login with your Google account also.
 🌐 You can access the live version of the project from the following link.
+```
 
   https://twitter-app-kerimmstfdemir.onrender.com/
 
