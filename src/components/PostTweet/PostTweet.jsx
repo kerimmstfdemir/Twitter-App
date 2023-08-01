@@ -75,7 +75,7 @@ function TweetBox() {
           setTweetImage("");
           setTweetMessage("");
 
-          alert("Sent your post..")
+          alert("Tweet posted successfully.")
         }catch(error){
           console.log(error.massage)
           alert("Post failed!")
@@ -102,7 +102,7 @@ function TweetBox() {
           value={tweetImage}
           onChange={handleImgUrl}
           className="tweetBox__imageInput"
-          placeholder="Enter image or video URL"
+          placeholder="Enter image URL"
           type="text"
         />
 
