@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const Trends = () => {
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("Worldwide");
   const [trendTopics, setTrendTopics] = useState([]);
 
   const countries = [
@@ -44,7 +44,6 @@ const Trends = () => {
       </div>
       <div>
         <select className="form-select" style={{margin:"1rem", width:"95%"}} value={selectedCountry.code} onChange={handleCountryChange}>
-          <option value="">Select Country</option>
           {countries.map((country) => (
             <option key={country.code} value={country.code}>
               {country.name}
@@ -53,7 +52,7 @@ const Trends = () => {
         </select>
       </div>
       <div>
-        <h4 style={{marginLeft:"1rem"}}>Trending Topics in {selectedCountry.name}</h4>
+        <h4 style={{marginLeft:"1rem"}}>Trending Topics in {selectedCountry.name || "Worldwide"}</h4>
         <ul>
           {trendTopics.map((topic) => (
             <li key={topic.name}>{topic.name}</li>
