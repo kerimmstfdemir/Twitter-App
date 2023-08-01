@@ -9,6 +9,7 @@ import app from "../../authentication/firebase";
 import { getPosts } from "../../redux/features/postsSlice";
 import UserTweets from "../../components/UserTweets/UserTweets";
 import OtherUserTweets from "../../components/UserTweets/OtherUserTweets";
+import Trends from "../../components/Trends/Trends";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -35,8 +36,9 @@ const Home = () => {
     <div className="home">
       <Sidebar />
       {activeTab === "Home" && <HomePageFlow posts={posts}/>}
-      {activeTab === "YourTweets" && <UserTweets posts={posts}/>}
-      {activeTab === "Explore" && <OtherUserTweets posts={posts}/>}
+      {activeTab === "YourTweets" && <UserTweets />}
+      {activeTab === "Explore" && <OtherUserTweets />}
+      {activeTab === "Trends" && <Trends />}
     </div>
   )
 }

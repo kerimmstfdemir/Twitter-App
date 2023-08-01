@@ -29,7 +29,7 @@ const OtherUserTweets = () => {
       <div>
         <h5>Select User :</h5>
         <select className="form-select" value={selectedUsername} style={{margin:"1rem", width:"95%"}} onChange={handleUserChange}>
-          <option value="">--- Select ---</option>
+          <option value="">Select</option>
           {usernames.map((username) => (
             <option key={username} value={username}>
               {username}
