@@ -14,6 +14,7 @@
 To run this React application locally, follow these steps:
 
 1. **Clone the repository:**
+   
 Open your terminal/command prompt and run the following command to clone the repository to your local machine:
 
 ```bash
@@ -21,6 +22,7 @@ git clone <repository_url>
 ```
 
 2. **Navigate to the project directory:**
+   
 Change your working directory to the project folder using the cd command:
 
 ```bash
@@ -28,9 +30,11 @@ cd <project_folder_name>
 ```
 
 3. **Set up Firebase credentials:**
+   
 If you haven't already, create a Firebase project and get the required credentials for authentication and database access. Update the Firebase configuration in the ```firebase.js``` file located in the ```src/authentication``` folder with your credentials.
 
 4. **Install dependencies:**
+
 Use npm or yarn to install the required dependencies:
 
 ```bash
@@ -42,6 +46,7 @@ yarn install
 ```
 
 5. **Start the development server:**
+
 To launch the application, run the following command:
 
 ```bash
